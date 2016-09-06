@@ -1,0 +1,540 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		506FBF041D7DBB2500416A99 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506FBF031D7DBB2500416A99 /* AppDelegate.swift */; };
+		506FBF061D7DBB2500416A99 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506FBF051D7DBB2500416A99 /* ViewController.swift */; };
+		506FBF091D7DBB2500416A99 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 506FBF071D7DBB2500416A99 /* Main.storyboard */; };
+		506FBF0B1D7DBB2500416A99 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 506FBF0A1D7DBB2500416A99 /* Assets.xcassets */; };
+		506FBF0E1D7DBB2500416A99 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 506FBF0C1D7DBB2500416A99 /* LaunchScreen.storyboard */; };
+		506FBF191D7DBB2600416A99 /* JKAutoRecycleImages_SwiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506FBF181D7DBB2600416A99 /* JKAutoRecycleImages_SwiftTests.swift */; };
+		506FBF241D7DBB2600416A99 /* JKAutoRecycleImages_SwiftUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506FBF231D7DBB2600416A99 /* JKAutoRecycleImages_SwiftUITests.swift */; };
+		506FBF371D7DBB4C00416A99 /* kenan01.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 506FBF321D7DBB4C00416A99 /* kenan01.jpg */; };
+		506FBF381D7DBB4C00416A99 /* kenan02.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 506FBF331D7DBB4C00416A99 /* kenan02.jpg */; };
+		506FBF391D7DBB4C00416A99 /* kenan03.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 506FBF341D7DBB4C00416A99 /* kenan03.jpg */; };
+		506FBF3A1D7DBB4C00416A99 /* kenan04.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 506FBF351D7DBB4C00416A99 /* kenan04.jpg */; };
+		506FBF3B1D7DBB4C00416A99 /* kenan05.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 506FBF361D7DBB4C00416A99 /* kenan05.jpg */; };
+		506FBF3D1D7DBBD000416A99 /* JKRecycleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506FBF3C1D7DBBD000416A99 /* JKRecycleView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		506FBF151D7DBB2600416A99 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 506FBEF81D7DBB2500416A99 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 506FBEFF1D7DBB2500416A99;
+			remoteInfo = "JKAutoRecycleImages-Swift";
+		};
+		506FBF201D7DBB2600416A99 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 506FBEF81D7DBB2500416A99 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 506FBEFF1D7DBB2500416A99;
+			remoteInfo = "JKAutoRecycleImages-Swift";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		506FBF001D7DBB2500416A99 /* JKAutoRecycleImages-Swift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "JKAutoRecycleImages-Swift.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		506FBF031D7DBB2500416A99 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		506FBF051D7DBB2500416A99 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		506FBF081D7DBB2500416A99 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		506FBF0A1D7DBB2500416A99 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		506FBF0D1D7DBB2500416A99 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		506FBF0F1D7DBB2500416A99 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		506FBF141D7DBB2600416A99 /* JKAutoRecycleImages-SwiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "JKAutoRecycleImages-SwiftTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		506FBF181D7DBB2600416A99 /* JKAutoRecycleImages_SwiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JKAutoRecycleImages_SwiftTests.swift; sourceTree = "<group>"; };
+		506FBF1A1D7DBB2600416A99 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		506FBF1F1D7DBB2600416A99 /* JKAutoRecycleImages-SwiftUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "JKAutoRecycleImages-SwiftUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		506FBF231D7DBB2600416A99 /* JKAutoRecycleImages_SwiftUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JKAutoRecycleImages_SwiftUITests.swift; sourceTree = "<group>"; };
+		506FBF251D7DBB2600416A99 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		506FBF321D7DBB4C00416A99 /* kenan01.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = kenan01.jpg; sourceTree = "<group>"; };
+		506FBF331D7DBB4C00416A99 /* kenan02.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = kenan02.jpg; sourceTree = "<group>"; };
+		506FBF341D7DBB4C00416A99 /* kenan03.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = kenan03.jpg; sourceTree = "<group>"; };
+		506FBF351D7DBB4C00416A99 /* kenan04.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = kenan04.jpg; sourceTree = "<group>"; };
+		506FBF361D7DBB4C00416A99 /* kenan05.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = kenan05.jpg; sourceTree = "<group>"; };
+		506FBF3C1D7DBBD000416A99 /* JKRecycleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JKRecycleView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		506FBEFD1D7DBB2500416A99 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		506FBF111D7DBB2600416A99 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		506FBF1C1D7DBB2600416A99 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		506FBEF71D7DBB2500416A99 = {
+			isa = PBXGroup;
+			children = (
+				506FBF021D7DBB2500416A99 /* JKAutoRecycleImages-Swift */,
+				506FBF171D7DBB2600416A99 /* JKAutoRecycleImages-SwiftTests */,
+				506FBF221D7DBB2600416A99 /* JKAutoRecycleImages-SwiftUITests */,
+				506FBF011D7DBB2500416A99 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		506FBF011D7DBB2500416A99 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				506FBF001D7DBB2500416A99 /* JKAutoRecycleImages-Swift.app */,
+				506FBF141D7DBB2600416A99 /* JKAutoRecycleImages-SwiftTests.xctest */,
+				506FBF1F1D7DBB2600416A99 /* JKAutoRecycleImages-SwiftUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		506FBF021D7DBB2500416A99 /* JKAutoRecycleImages-Swift */ = {
+			isa = PBXGroup;
+			children = (
+				506FBF311D7DBB3A00416A99 /* Resources */,
+				506FBF031D7DBB2500416A99 /* AppDelegate.swift */,
+				506FBF051D7DBB2500416A99 /* ViewController.swift */,
+				506FBF3C1D7DBBD000416A99 /* JKRecycleView.swift */,
+				506FBF071D7DBB2500416A99 /* Main.storyboard */,
+				506FBF0A1D7DBB2500416A99 /* Assets.xcassets */,
+				506FBF0C1D7DBB2500416A99 /* LaunchScreen.storyboard */,
+				506FBF0F1D7DBB2500416A99 /* Info.plist */,
+			);
+			path = "JKAutoRecycleImages-Swift";
+			sourceTree = "<group>";
+		};
+		506FBF171D7DBB2600416A99 /* JKAutoRecycleImages-SwiftTests */ = {
+			isa = PBXGroup;
+			children = (
+				506FBF181D7DBB2600416A99 /* JKAutoRecycleImages_SwiftTests.swift */,
+				506FBF1A1D7DBB2600416A99 /* Info.plist */,
+			);
+			path = "JKAutoRecycleImages-SwiftTests";
+			sourceTree = "<group>";
+		};
+		506FBF221D7DBB2600416A99 /* JKAutoRecycleImages-SwiftUITests */ = {
+			isa = PBXGroup;
+			children = (
+				506FBF231D7DBB2600416A99 /* JKAutoRecycleImages_SwiftUITests.swift */,
+				506FBF251D7DBB2600416A99 /* Info.plist */,
+			);
+			path = "JKAutoRecycleImages-SwiftUITests";
+			sourceTree = "<group>";
+		};
+		506FBF311D7DBB3A00416A99 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				506FBF321D7DBB4C00416A99 /* kenan01.jpg */,
+				506FBF331D7DBB4C00416A99 /* kenan02.jpg */,
+				506FBF341D7DBB4C00416A99 /* kenan03.jpg */,
+				506FBF351D7DBB4C00416A99 /* kenan04.jpg */,
+				506FBF361D7DBB4C00416A99 /* kenan05.jpg */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		506FBEFF1D7DBB2500416A99 /* JKAutoRecycleImages-Swift */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 506FBF281D7DBB2600416A99 /* Build configuration list for PBXNativeTarget "JKAutoRecycleImages-Swift" */;
+			buildPhases = (
+				506FBEFC1D7DBB2500416A99 /* Sources */,
+				506FBEFD1D7DBB2500416A99 /* Frameworks */,
+				506FBEFE1D7DBB2500416A99 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "JKAutoRecycleImages-Swift";
+			productName = "JKAutoRecycleImages-Swift";
+			productReference = 506FBF001D7DBB2500416A99 /* JKAutoRecycleImages-Swift.app */;
+			productType = "com.apple.product-type.application";
+		};
+		506FBF131D7DBB2600416A99 /* JKAutoRecycleImages-SwiftTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 506FBF2B1D7DBB2600416A99 /* Build configuration list for PBXNativeTarget "JKAutoRecycleImages-SwiftTests" */;
+			buildPhases = (
+				506FBF101D7DBB2600416A99 /* Sources */,
+				506FBF111D7DBB2600416A99 /* Frameworks */,
+				506FBF121D7DBB2600416A99 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				506FBF161D7DBB2600416A99 /* PBXTargetDependency */,
+			);
+			name = "JKAutoRecycleImages-SwiftTests";
+			productName = "JKAutoRecycleImages-SwiftTests";
+			productReference = 506FBF141D7DBB2600416A99 /* JKAutoRecycleImages-SwiftTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		506FBF1E1D7DBB2600416A99 /* JKAutoRecycleImages-SwiftUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 506FBF2E1D7DBB2600416A99 /* Build configuration list for PBXNativeTarget "JKAutoRecycleImages-SwiftUITests" */;
+			buildPhases = (
+				506FBF1B1D7DBB2600416A99 /* Sources */,
+				506FBF1C1D7DBB2600416A99 /* Frameworks */,
+				506FBF1D1D7DBB2600416A99 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				506FBF211D7DBB2600416A99 /* PBXTargetDependency */,
+			);
+			name = "JKAutoRecycleImages-SwiftUITests";
+			productName = "JKAutoRecycleImages-SwiftUITests";
+			productReference = 506FBF1F1D7DBB2600416A99 /* JKAutoRecycleImages-SwiftUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		506FBEF81D7DBB2500416A99 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0720;
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = albert;
+				TargetAttributes = {
+					506FBEFF1D7DBB2500416A99 = {
+						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = R9ETGYBWPU;
+					};
+					506FBF131D7DBB2600416A99 = {
+						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = R9ETGYBWPU;
+						TestTargetID = 506FBEFF1D7DBB2500416A99;
+					};
+					506FBF1E1D7DBB2600416A99 = {
+						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = R9ETGYBWPU;
+						TestTargetID = 506FBEFF1D7DBB2500416A99;
+					};
+				};
+			};
+			buildConfigurationList = 506FBEFB1D7DBB2500416A99 /* Build configuration list for PBXProject "JKAutoRecycleImages-Swift" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 506FBEF71D7DBB2500416A99;
+			productRefGroup = 506FBF011D7DBB2500416A99 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				506FBEFF1D7DBB2500416A99 /* JKAutoRecycleImages-Swift */,
+				506FBF131D7DBB2600416A99 /* JKAutoRecycleImages-SwiftTests */,
+				506FBF1E1D7DBB2600416A99 /* JKAutoRecycleImages-SwiftUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		506FBEFE1D7DBB2500416A99 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				506FBF371D7DBB4C00416A99 /* kenan01.jpg in Resources */,
+				506FBF0E1D7DBB2500416A99 /* LaunchScreen.storyboard in Resources */,
+				506FBF391D7DBB4C00416A99 /* kenan03.jpg in Resources */,
+				506FBF0B1D7DBB2500416A99 /* Assets.xcassets in Resources */,
+				506FBF3B1D7DBB4C00416A99 /* kenan05.jpg in Resources */,
+				506FBF091D7DBB2500416A99 /* Main.storyboard in Resources */,
+				506FBF3A1D7DBB4C00416A99 /* kenan04.jpg in Resources */,
+				506FBF381D7DBB4C00416A99 /* kenan02.jpg in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		506FBF121D7DBB2600416A99 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		506FBF1D1D7DBB2600416A99 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		506FBEFC1D7DBB2500416A99 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				506FBF061D7DBB2500416A99 /* ViewController.swift in Sources */,
+				506FBF041D7DBB2500416A99 /* AppDelegate.swift in Sources */,
+				506FBF3D1D7DBBD000416A99 /* JKRecycleView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		506FBF101D7DBB2600416A99 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				506FBF191D7DBB2600416A99 /* JKAutoRecycleImages_SwiftTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		506FBF1B1D7DBB2600416A99 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				506FBF241D7DBB2600416A99 /* JKAutoRecycleImages_SwiftUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		506FBF161D7DBB2600416A99 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 506FBEFF1D7DBB2500416A99 /* JKAutoRecycleImages-Swift */;
+			targetProxy = 506FBF151D7DBB2600416A99 /* PBXContainerItemProxy */;
+		};
+		506FBF211D7DBB2600416A99 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 506FBEFF1D7DBB2500416A99 /* JKAutoRecycleImages-Swift */;
+			targetProxy = 506FBF201D7DBB2600416A99 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		506FBF071D7DBB2500416A99 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				506FBF081D7DBB2500416A99 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		506FBF0C1D7DBB2500416A99 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				506FBF0D1D7DBB2500416A99 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		506FBF261D7DBB2600416A99 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		506FBF271D7DBB2600416A99 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		506FBF291D7DBB2600416A99 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "JKAutoRecycleImages-Swift/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "jkdev123cool.JKAutoRecycleImages-Swift";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		506FBF2A1D7DBB2600416A99 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = "JKAutoRecycleImages-Swift/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "jkdev123cool.JKAutoRecycleImages-Swift";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		506FBF2C1D7DBB2600416A99 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = "JKAutoRecycleImages-SwiftTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "jkdev123cool.JKAutoRecycleImages-SwiftTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JKAutoRecycleImages-Swift.app/JKAutoRecycleImages-Swift";
+			};
+			name = Debug;
+		};
+		506FBF2D1D7DBB2600416A99 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = "JKAutoRecycleImages-SwiftTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "jkdev123cool.JKAutoRecycleImages-SwiftTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JKAutoRecycleImages-Swift.app/JKAutoRecycleImages-Swift";
+			};
+			name = Release;
+		};
+		506FBF2F1D7DBB2600416A99 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = "JKAutoRecycleImages-SwiftUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "jkdev123cool.JKAutoRecycleImages-SwiftUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = "JKAutoRecycleImages-Swift";
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		506FBF301D7DBB2600416A99 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = "JKAutoRecycleImages-SwiftUITests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "jkdev123cool.JKAutoRecycleImages-SwiftUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = "JKAutoRecycleImages-Swift";
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		506FBEFB1D7DBB2500416A99 /* Build configuration list for PBXProject "JKAutoRecycleImages-Swift" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				506FBF261D7DBB2600416A99 /* Debug */,
+				506FBF271D7DBB2600416A99 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		506FBF281D7DBB2600416A99 /* Build configuration list for PBXNativeTarget "JKAutoRecycleImages-Swift" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				506FBF291D7DBB2600416A99 /* Debug */,
+				506FBF2A1D7DBB2600416A99 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		506FBF2B1D7DBB2600416A99 /* Build configuration list for PBXNativeTarget "JKAutoRecycleImages-SwiftTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				506FBF2C1D7DBB2600416A99 /* Debug */,
+				506FBF2D1D7DBB2600416A99 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		506FBF2E1D7DBB2600416A99 /* Build configuration list for PBXNativeTarget "JKAutoRecycleImages-SwiftUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				506FBF2F1D7DBB2600416A99 /* Debug */,
+				506FBF301D7DBB2600416A99 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 506FBEF81D7DBB2500416A99 /* Project object */;
+}
