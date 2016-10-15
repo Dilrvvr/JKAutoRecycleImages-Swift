@@ -123,6 +123,9 @@ class JKRecycleView: UIView {
         recycleImageViews.append(allImageViews[nextIndex])
         
         // 中间label赋值
+        if allTitleLabels.count < currentIndex + 1 {
+            return;
+        }
         middleLabel = allTitleLabels[currentIndex];
     }
     
@@ -228,6 +231,13 @@ class JKRecycleView: UIView {
             imageView.image = UIImage(contentsOfFile: NSBundle.mainBundle().pathForResource(imgNames[i], ofType: "jpg")!)
             imageView.frame = CGRect(x: 0, y: 0, width: scrollView.bounds.size.width, height: scrollView.bounds.size.height)
             
+            // 将控件添加到数组
+            allImageViews.append(imageView)
+            
+            if titles == nil || titles?.count < imageNames?.count {
+                continue;
+            }
+            
             // 创建titleLabel
             let titleLabel = UILabel()
             titleLabel.sizeToFit()
@@ -240,13 +250,9 @@ class JKRecycleView: UIView {
             titleLabel.textColor = UIColor.whiteColor()
             titleLabel.backgroundColor = UIColor.clearColor()
             titleLabel.lineBreakMode = NSLineBreakMode.ByCharWrapping;
-            if titles != nil && titles?.count >= imageNames?.count {
-                titleLabel.text = titles![i];
-            }
-            imageView.addSubview(titleLabel)
+            titleLabel.text = titles![i];
             
-            // 将控件添加到数组
-            allImageViews.append(imageView)
+            imageView.addSubview(titleLabel)
             allTitleLabels.append(titleLabel)
         }
         
