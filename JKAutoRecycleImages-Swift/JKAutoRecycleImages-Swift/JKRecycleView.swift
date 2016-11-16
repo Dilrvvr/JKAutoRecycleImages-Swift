@@ -62,7 +62,20 @@ class JKRecycleView: UIView {
     
     //MARK: - 外部属性
     /** 自动滚动的时间间隔（单位为s）默认3s */
-    var autoRecycleInterval: NSTimeInterval = 3
+    var autoRecycleInterval: NSTimeInterval = 3 {
+        didSet{
+            removeTimer()
+            addTimer()
+        }
+    }
+    
+    /** 是否自动开始循环 默认true */
+    var isAutoRecycle: Bool = true{
+        didSet{
+            removeTimer()
+            addTimer()
+        }
+    }
     
     /** 当前的数据 */
     var imageNames = [String]()
@@ -82,6 +95,7 @@ class JKRecycleView: UIView {
     }
     
     private func initialization() {
+        
         addSubview(scrollView)
         addSubview(pageControl)
         
@@ -170,6 +184,10 @@ class JKRecycleView: UIView {
     //MARK: - 外部方法
     /** 添加定时器 */
     func addTimer(){
+        if isAutoRecycle == false {
+            return
+        }
+        
         if pagesCount <= 1 {
             return
         }
