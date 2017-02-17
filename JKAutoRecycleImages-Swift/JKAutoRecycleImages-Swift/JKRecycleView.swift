@@ -212,6 +212,8 @@ class JKRecycleView: UIView {
             return
         }
         
+        isDataAdded = false
+        
         // 防止重复赋值
         if imgNames.count == self.imageNames.count {
             isDataAdded = true
