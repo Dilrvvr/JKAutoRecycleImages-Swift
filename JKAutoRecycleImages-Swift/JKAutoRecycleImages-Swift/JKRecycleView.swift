@@ -7,62 +7,78 @@
 //
 
 import UIKit
+// FIXME: comparison operators with optionals were removed from the Swift Standard Libary.
+// Consider refactoring the code to use the non-optional operators.
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
 
 // MARK: - 代理方法
 @objc
 protocol JKRecycleViewDelegate: NSObjectProtocol {
     /** 点击添加照片按钮 */
-    optional func recycleView(recycleView: JKRecycleView, didClickCurrentImageView: Int)
+    @objc optional func recycleView(_ recycleView: JKRecycleView, didClickCurrentImageView: Int)
 }
 
 class JKRecycleView: UIView {
     //MARK: - 私有属性
     /** scrollView */
-    private lazy var scrollView: UIScrollView = {
+    fileprivate lazy var scrollView: UIScrollView = {
         let sc = UIScrollView(frame: self.bounds)
         sc.delegate = self
-        sc.backgroundColor = UIColor.clearColor()
-        sc.pagingEnabled = true
-        sc.contentSize = CGSizeMake(3 * self.bounds.size.width, 0)
+        sc.backgroundColor = UIColor.clear
+        sc.isPagingEnabled = true
+        sc.contentSize = CGSize(width: 3 * self.bounds.size.width, height: 0)
         return sc
     }()
     
     /** pageControl */
-    private lazy var pageControl: UIPageControl = {
+    fileprivate lazy var pageControl: UIPageControl = {
         let pc = UIPageControl()
         pc.frame = CGRect(x: 0, y: self.bounds.size.height - 30, width: self.bounds.size.width, height: 37)
-        pc.userInteractionEnabled = false
-        pc.pageIndicatorTintColor = UIColor.darkGrayColor()
+        pc.isUserInteractionEnabled = false
+        pc.pageIndicatorTintColor = UIColor.darkGray
         return pc
     }()
     
+    /** 点击图片的闭包回调，不想用代理可以用这个 */
+    public var imageClickBlock : ((_ index: Int)->())?
+    
     /** 中间的label */
-    private var middleLabel: UILabel?
+    fileprivate var middleLabel: UILabel?
     
     /** 定时器 */
-    private var timer: NSTimer?
+    fileprivate var timer: Timer?
     
     /** 要循环的imageView */
-    private var recycleImageViews = [UIImageView]()
+    fileprivate var recycleImageViews = [UIImageView]()
     
     /** 所有的imageView */
-    private var allImageViews = [UIImageView]()
+    fileprivate var allImageViews = [UIImageView]()
     
     /** 所有的label */
-    private var allTitleLabels = [UILabel]()
+    fileprivate var allTitleLabels = [UILabel]()
     
     /** 当前的索引 */
-    private var currentIndex = 0
+    fileprivate var currentIndex = 0
     
     /** 图片页数 */
-    private var pagesCount = 0
+    fileprivate var pagesCount = 0
     
     /** 数据是否应添加 */
-    private var isDataAdded = false
+    fileprivate var isDataAdded = false
     
     //MARK: - 外部属性
     /** 自动滚动的时间间隔（单位为s）默认3s */
-    var autoRecycleInterval: NSTimeInterval = 3 {
+    var autoRecycleInterval: TimeInterval = 3 {
         didSet{
             removeTimer()
             addTimer()
@@ -94,26 +110,32 @@ class JKRecycleView: UIView {
         initialization()
     }
     
-    private func initialization() {
+    fileprivate func initialization() {
         
         addSubview(scrollView)
         addSubview(pageControl)
         
-        addGestureRecognizer(UITapGestureRecognizer(target: self, action: "clickMiddleImageView"))
+        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(JKRecycleView.clickMiddleImageView)))
     }
     
     //MARK: - 内部方法
     /** 点击了中间的ImageView即当前显示的ImageView */
-    @objc private func clickMiddleImageView(){
-        if let tempDelegate = delegate {
-            if tempDelegate.respondsToSelector("recycleView:didClickCurrentImageView:") {
-                tempDelegate.recycleView!(self, didClickCurrentImageView: currentIndex)
-            }
+    @objc fileprivate func clickMiddleImageView(){
+        if imageClickBlock != nil {
+            imageClickBlock!(currentIndex)
+        }
+        
+        guard let _ = delegate else {
+            return
+        }
+        
+        if (delegate?.responds(to: #selector(JKRecycleViewDelegate.recycleView(_:didClickCurrentImageView:))))! {
+            delegate?.recycleView!(self, didClickCurrentImageView: currentIndex)
         }
     }
     
     /** 传入一个index来获取下一个正确的index */
-    private func getVaildNextPageIndex(index: Int) -> Int{
+    fileprivate func getVaildNextPageIndex(_ index: Int) -> Int{
         if (index == -1) {
             return pagesCount - 1;
         } else if (index == pagesCount) {
@@ -123,7 +145,7 @@ class JKRecycleView: UIView {
     }
     
     /** 更新recycleImageViews */
-    private func updaterecycleImageViews (){
+    fileprivate func updaterecycleImageViews (){
         // 先清空数组
         recycleImageViews.removeAll()
         
@@ -144,7 +166,7 @@ class JKRecycleView: UIView {
     }
     
     /** 重载recycleImageViews */
-    private func reloadRecycleImageViews() {
+    fileprivate func reloadRecycleImageViews() {
         // 先让scrollView移除所有控件
         for view: UIView in scrollView.subviews {
             view.removeFromSuperview()
@@ -154,17 +176,17 @@ class JKRecycleView: UIView {
         updaterecycleImageViews()
         
         // 将这三张图片添加到scrollView
-        for var i = 0; i < recycleImageViews.count; i++ {
+        for i in 0 ..< recycleImageViews.count {
             let imageView = recycleImageViews[i]
             let rect = imageView.frame;
             imageView.frame = CGRect(x: scrollView.bounds.size.width * CGFloat(i), y: rect.origin.y, width: rect.size.width, height: rect.size.height)
-            scrollView.insertSubview(imageView, atIndex: 0)
+            scrollView.insertSubview(imageView, at: 0)
         }
         // 如果只有一张图片及以下，就没必要滚动了吧
         if (pagesCount <= 1) {
             scrollView.contentOffset = CGPoint(x: self.bounds.size.width * 2, y: 0)
-            scrollView.scrollEnabled = false
-            pageControl.hidden = true
+            scrollView.isScrollEnabled = false
+            pageControl.isHidden = true
             return
         }
         
@@ -176,7 +198,7 @@ class JKRecycleView: UIView {
     }
     
     /** 循环滚动的方法 */
-    @objc private func startAutoRecycle() {
+    @objc fileprivate func startAutoRecycle() {
         let newOffset = CGPoint(x: scrollView.bounds.size.width * 2, y: 0)
         scrollView.setContentOffset(newOffset, animated: true)
     }
@@ -196,8 +218,8 @@ class JKRecycleView: UIView {
             return
         }
         
-        timer = NSTimer(timeInterval: autoRecycleInterval, target: self, selector: "startAutoRecycle", userInfo: nil, repeats: true)
-        NSRunLoop.currentRunLoop().addTimer(timer!, forMode: NSRunLoopCommonModes)
+        timer = Timer(timeInterval: autoRecycleInterval, target: self, selector: #selector(JKRecycleView.startAutoRecycle), userInfo: nil, repeats: true)
+        RunLoop.current.add(timer!, forMode: RunLoopMode.commonModes)
     }
     
     /** 移除定时器 */
@@ -207,7 +229,7 @@ class JKRecycleView: UIView {
     }
     
     /** 设置数据 */
-    func set(imageNames: [String]?, titles: [String]?){
+    func set(_ imageNames: [String]?, titles: [String]?){
         guard let imgNames = imageNames else {
             return
         }
@@ -217,7 +239,7 @@ class JKRecycleView: UIView {
         // 防止重复赋值
         if imgNames.count == self.imageNames.count {
             isDataAdded = true
-            for var i = 0; i < imgNames.count; i++ {
+            for i in 0 ..< imgNames.count {
                 let str1 = imgNames[i];
                 let str2 = self.imageNames[i];
                 if str1 == str2 {
@@ -245,10 +267,10 @@ class JKRecycleView: UIView {
         allTitleLabels.removeAll()
         
         // 循环创建imageView等控件，添加到数组中
-        for var i = 0; i < pagesCount; i++ {
+        for i in 0 ..< pagesCount {
             // 创建imageView
             let imageView = UIImageView()
-            imageView.image = UIImage(contentsOfFile: NSBundle.mainBundle().pathForResource(imgNames[i], ofType: "jpg")!)
+            imageView.image = UIImage(contentsOfFile: Bundle.main.path(forResource: imgNames[i], ofType: "jpg")!)
             imageView.frame = CGRect(x: 0, y: 0, width: scrollView.bounds.size.width, height: scrollView.bounds.size.height)
             
             // 将控件添加到数组
@@ -262,14 +284,14 @@ class JKRecycleView: UIView {
             let titleLabel = UILabel()
             titleLabel.sizeToFit()
             titleLabel.frame = CGRect(x: 0, y: imageView.bounds.size.height-50, width: imageView.bounds.size.width, height: 30)
-            titleLabel.textAlignment = NSTextAlignment.Center
+            titleLabel.textAlignment = NSTextAlignment.center
             titleLabel.numberOfLines = 0
-            titleLabel.font = UIFont.boldSystemFontOfSize(20)
-            titleLabel.shadowColor = UIColor.darkGrayColor()
+            titleLabel.font = UIFont.boldSystemFont(ofSize: 20)
+            titleLabel.shadowColor = UIColor.darkGray
             titleLabel.shadowOffset = CGSize(width: 1, height: 0)
-            titleLabel.textColor = UIColor.whiteColor()
-            titleLabel.backgroundColor = UIColor.clearColor()
-            titleLabel.lineBreakMode = NSLineBreakMode.ByCharWrapping;
+            titleLabel.textColor = UIColor.white
+            titleLabel.backgroundColor = UIColor.clear
+            titleLabel.lineBreakMode = NSLineBreakMode.byCharWrapping;
             titleLabel.text = titles![i];
             
             imageView.addSubview(titleLabel)
@@ -287,7 +309,7 @@ class JKRecycleView: UIView {
 // MARK: - scrollView代理
 extension JKRecycleView: UIScrollViewDelegate {
     // 根据滚动的偏移量设置当前的索引，并更新要进行循环的三张图片
-    func scrollViewDidScroll(scrollView: UIScrollView) {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetX = scrollView.contentOffset.x;
         
         if offsetX >= (2 * scrollView.bounds.size.width) {
@@ -302,17 +324,17 @@ extension JKRecycleView: UIScrollViewDelegate {
     }
     
     // 减速完毕 重新设置scrollView的x偏移
-    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         scrollView.setContentOffset(CGPoint(x: scrollView.bounds.size.width, y: 0), animated: true)
     }
     
     // 手指拖动 移除定时器
-    func scrollViewWillBeginDragging(scrollView: UIScrollView) {
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         removeTimer()
     }
     
     // 手指松开 添加定时器
-    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
         addTimer()
     }
 }

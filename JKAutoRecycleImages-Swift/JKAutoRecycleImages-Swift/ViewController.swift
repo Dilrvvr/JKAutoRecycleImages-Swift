@@ -18,25 +18,36 @@ class ViewController: UIViewController, JKRecycleViewDelegate {
         recycleView.delegate = self
         
         recycleView.set(["kenan01", "kenan02", "kenan03", "kenan04", "kenan05"], titles: ["kenan01-柯兰", "kenan02-柯哀", "kenan03-柯兰", "kenan04-新兰", "kenan05-全家福"])
+        
+        weak var weakSelf = self
+        recycleView.imageClickBlock = {
+            (index: Int) -> ()
+            in
+            weakSelf?.alertImageIndex(index)
+        }
     }
     
-    @IBAction func start(sender: AnyObject) {
+    @IBAction func start(_ sender: AnyObject) {
         recycleView.addTimer()
     }
     
-    @IBAction func stop(sender: AnyObject) {
+    @IBAction func stop(_ sender: AnyObject) {
         recycleView.removeTimer()
     }
     
     //MARK: - <JKRecycleViewDelegate>
-    func recycleView(recycleView: JKRecycleView, didClickCurrentImageView: Int) {
-        let message = "点击了第\(didClickCurrentImageView + 1)张图片"//[NSString stringWithFormat:@, ];
+    func recycleView(_ recycleView: JKRecycleView, didClickCurrentImageView: Int) {
+//        alertImageIndex(didClickCurrentImageView)
+    }
+    
+    private func alertImageIndex(_ index: Int) {
+        let message = "点击了第\(index + 1)张图片"//[NSString stringWithFormat:@, ];
         
-        let alertVc = UIAlertController(title: nil, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        let alertVc = UIAlertController(title: nil, message: message, preferredStyle: UIAlertControllerStyle.alert)
         
-        alertVc.addAction(UIAlertAction(title: "确定", style: UIAlertActionStyle.Default, handler: nil))
+        alertVc.addAction(UIAlertAction(title: "确定", style: UIAlertActionStyle.default, handler: nil))
         
-        self.presentViewController(alertVc, animated: true, completion: nil)
+        self.present(alertVc, animated: true, completion: nil)
     }
 }
 
