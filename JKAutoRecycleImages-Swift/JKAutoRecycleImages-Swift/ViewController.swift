@@ -16,12 +16,11 @@ class ViewController: UIViewController, JKRecycleViewDelegate {
         super.viewDidLoad()
         
         recycleView.delegate = self
-        
-        recycleView.set(["kenan01", "kenan02", "kenan03", "kenan04", "kenan05"], titles: ["kenan01-柯兰", "kenan02-柯哀", "kenan03-柯兰", "kenan04-新兰", "kenan05-全家福"])
+        recycleView.setImageData(imageUrls: ["kenan01.jpg", "kenan02.jpg", "kenan03.jpg", "kenan04.jpg", "kenan05.jpg"], titles: ["kenan01-柯兰", "kenan02-柯哀", "kenan03-柯兰", "kenan04-新兰", "kenan05-全家福"], otherDataDicts: nil)
         
         weak var weakSelf = self
         recycleView.imageClickBlock = {
-            (index: Int) -> ()
+            (index: Int, otherDataDict: [String : AnyObject]) -> ()
             in
             weakSelf?.alertImageIndex(index)
         }

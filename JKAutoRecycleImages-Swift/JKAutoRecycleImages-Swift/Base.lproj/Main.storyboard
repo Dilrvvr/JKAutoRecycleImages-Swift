@@ -1,88 +1,73 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Frg-iQ-dtN">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
-        <scene sceneID="tne-QT-ifu">
+        <scene sceneID="39q-Cp-k1I">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="JKAutoRecycleImages_Swift" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Frg-iQ-dtN" customClass="ViewController" customModule="JKAutoRecycleImages_Swift" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
-                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                        <viewControllerLayoutGuide type="top" id="VKU-bW-ey2"/>
+                        <viewControllerLayoutGuide type="bottom" id="zk6-LX-0QS"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <view key="view" contentMode="scaleToFill" id="fZA-G4-k5F">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pp4-ud-gbE" customClass="JKRecycleView" customModule="JKAutoRecycleImages_Swift" customModuleProvider="target">
-                                <rect key="frame" x="140" y="120" width="320" height="180"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oDj-rb-Bpl" customClass="JKRecycleView" customModule="JKAutoRecycleImages_Swift" customModuleProvider="target">
+                                <rect key="frame" x="27.5" y="120" width="320" height="180"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="320" id="GfY-OA-fqH"/>
-                                    <constraint firstAttribute="height" constant="180" id="v4v-kv-lCc"/>
+                                    <constraint firstAttribute="height" constant="180" id="KLb-LI-yEn"/>
+                                    <constraint firstAttribute="width" constant="320" id="LwP-Zm-fNZ"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZXJ-sJ-VRo">
-                                <rect key="frame" x="160" y="330" width="100" height="40"/>
-                                <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QeD-Jv-1yd">
+                                <rect key="frame" x="52.5" y="330" width="100" height="40"/>
+                                <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="80" id="7bi-wt-mN6"/>
-                                    <constraint firstAttribute="height" constant="40" id="NdF-KO-aVr"/>
-                                    <constraint firstAttribute="width" constant="100" id="P4W-4g-aCO"/>
-                                    <constraint firstAttribute="height" constant="50" id="SOI-6J-0E3"/>
+                                    <constraint firstAttribute="height" constant="40" id="MHZ-iy-Og9"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="OLC-Km-ahz"/>
                                 </constraints>
                                 <state key="normal" title="开始"/>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="SOI-6J-0E3"/>
-                                        <exclude reference="7bi-wt-mN6"/>
-                                    </mask>
-                                </variation>
                                 <connections>
-                                    <action selector="start:" destination="BYZ-38-t0r" eventType="touchUpInside" id="abm-V9-k0M"/>
+                                    <action selector="start:" destination="Frg-iQ-dtN" eventType="touchUpInside" id="1wK-8W-EjR"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NUx-sv-P4X">
-                                <rect key="frame" x="340" y="330" width="100" height="40"/>
-                                <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="BNV-nT-KKU"/>
-                                    <constraint firstAttribute="width" constant="80" id="Bae-TE-a4T"/>
-                                    <constraint firstAttribute="width" constant="80" id="deJ-hN-sCw"/>
-                                    <constraint firstAttribute="height" constant="40" id="zSe-GZ-rnu"/>
-                                </constraints>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hat-uA-a7b">
+                                <rect key="frame" x="222.5" y="330" width="100" height="40"/>
+                                <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <state key="normal" title="停止"/>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="BNV-nT-KKU"/>
-                                        <exclude reference="deJ-hN-sCw"/>
-                                        <exclude reference="Bae-TE-a4T"/>
-                                    </mask>
-                                </variation>
                                 <connections>
-                                    <action selector="stop:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9EM-I4-2Ev"/>
+                                    <action selector="stop:" destination="Frg-iQ-dtN" eventType="touchUpInside" id="SbO-3S-sN3"/>
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Pp4-ud-gbE" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="100" id="2If-CG-vDV"/>
-                            <constraint firstItem="ZXJ-sJ-VRo" firstAttribute="top" secondItem="Pp4-ud-gbE" secondAttribute="bottom" constant="30" id="3RP-ap-4Cz"/>
-                            <constraint firstItem="Pp4-ud-gbE" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="O9U-Au-WoH"/>
-                            <constraint firstItem="ZXJ-sJ-VRo" firstAttribute="leading" secondItem="Pp4-ud-gbE" secondAttribute="leading" constant="20" id="PGQ-HO-haw"/>
-                            <constraint firstItem="NUx-sv-P4X" firstAttribute="width" secondItem="ZXJ-sJ-VRo" secondAttribute="width" id="gjI-6S-7lr"/>
-                            <constraint firstItem="NUx-sv-P4X" firstAttribute="trailing" secondItem="Pp4-ud-gbE" secondAttribute="trailing" constant="-20" id="oB2-J1-Z2r"/>
-                            <constraint firstItem="NUx-sv-P4X" firstAttribute="top" secondItem="ZXJ-sJ-VRo" secondAttribute="top" id="yVB-1h-glx"/>
+                            <constraint firstItem="Hat-uA-a7b" firstAttribute="top" secondItem="QeD-Jv-1yd" secondAttribute="top" id="AR8-si-NA3"/>
+                            <constraint firstItem="QeD-Jv-1yd" firstAttribute="centerX" secondItem="oDj-rb-Bpl" secondAttribute="centerX" constant="-85" id="QLV-8J-IcY"/>
+                            <constraint firstItem="QeD-Jv-1yd" firstAttribute="top" secondItem="oDj-rb-Bpl" secondAttribute="bottom" constant="30" id="e5o-5p-Rru"/>
+                            <constraint firstItem="oDj-rb-Bpl" firstAttribute="top" secondItem="VKU-bW-ey2" secondAttribute="bottom" constant="100" id="fH8-Vx-5MN"/>
+                            <constraint firstItem="Hat-uA-a7b" firstAttribute="width" secondItem="QeD-Jv-1yd" secondAttribute="width" id="kBl-5u-SJO"/>
+                            <constraint firstItem="Hat-uA-a7b" firstAttribute="height" secondItem="QeD-Jv-1yd" secondAttribute="height" id="l0H-wZ-ExV"/>
+                            <constraint firstItem="Hat-uA-a7b" firstAttribute="centerX" secondItem="oDj-rb-Bpl" secondAttribute="centerX" constant="85" id="vq2-KN-1Vy"/>
+                            <constraint firstItem="oDj-rb-Bpl" firstAttribute="centerX" secondItem="fZA-G4-k5F" secondAttribute="centerX" id="yrE-H8-7dN"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="recycleView" destination="Pp4-ud-gbE" id="OrT-Sf-THU"/>
+                        <outlet property="recycleView" destination="oDj-rb-Bpl" id="X2O-qC-WgY"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="reA-RC-kw5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="237" y="-320"/>
         </scene>
     </scenes>
 </document>
