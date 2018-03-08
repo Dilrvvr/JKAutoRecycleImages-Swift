@@ -68,7 +68,7 @@ class JKRecycleView: UIView {
     }()
     
     /** contentView */
-    lazy var contentView: UIView = {
+    private(set) lazy var contentView: UIView = {
         
         let contentView = UIView(frame: self.bounds)
         
