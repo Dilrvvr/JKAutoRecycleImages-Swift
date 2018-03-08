@@ -8,8 +8,6 @@
 
 import UIKit
 
-public let JKRecycleViewIsIphoneX = UIScreen.instancesRespond(to: #selector(getter: UIScreen.currentMode)) ? UIScreen.main.currentMode?.size.equalTo(CGSize(width: 1125, height: 2436)) : false
-
 // MARK: - 代理方法
 
 @objc
@@ -178,7 +176,6 @@ class JKRecycleView: UIView {
             
             // 创建titleLabel
             let titleLabel = UILabel()
-            titleLabel.frame = CGRect(x: 15, y: imageView.bounds.size.height-60-125 + (JKRecycleViewIsIphoneX! ? 10 : 0), width: imageView.bounds.size.width-30, height: 100)
             titleLabel.textAlignment = NSTextAlignment.left
             titleLabel.numberOfLines = 0
             titleLabel.font = UIFont.boldSystemFont(ofSize: 20)
