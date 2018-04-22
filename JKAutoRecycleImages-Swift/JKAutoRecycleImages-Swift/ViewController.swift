@@ -16,33 +16,43 @@ class ViewController: UIViewController, JKRecycleViewDelegate {
         super.viewDidLoad()
         
         recycleView.delegate = self
-        recycleView.setImageData(imageUrls: ["kenan01.jpg", "kenan02.jpg", "kenan03.jpg", "kenan04.jpg", "kenan05.jpg"], titles: ["kenan01-柯兰", "kenan02-柯哀", "kenan03-柯兰", "kenan04-新兰", "kenan05-全家福"], otherDataDicts: nil)
+        
+        recycleView.setDataSource(dataSource: [
+            [JKRecycleImageUrlKey : "kenan01.jpg" as AnyObject, JKRecycleTitleKey : "kenan01-柯兰" as AnyObject],
+            [JKRecycleImageUrlKey : "kenan02.jpg" as AnyObject, JKRecycleTitleKey : "kenan02-柯哀" as AnyObject],
+            [JKRecycleImageUrlKey : "kenan03.jpg" as AnyObject, JKRecycleTitleKey : "kenan03-柯兰" as AnyObject],
+            [JKRecycleImageUrlKey : "kenan04.jpg" as AnyObject, JKRecycleTitleKey : "kenan04-新兰" as AnyObject],
+            [JKRecycleImageUrlKey : "kenan05.jpg" as AnyObject, JKRecycleTitleKey : "kenan05-全家福" as AnyObject]])
         
         weak var weakSelf = self
-        recycleView.imageClickBlock = {
-            (index: Int, otherDataDict: [String : AnyObject]) -> ()
-            in
-            weakSelf?.alertImageIndex(index)
+        recycleView.imageClickBlock = { (dict) in
+            
+            weakSelf?.alertImageWith(dict)
         }
     }
     
     @IBAction func start(_ sender: AnyObject) {
+        
         recycleView.addTimer()
     }
     
     @IBAction func stop(_ sender: AnyObject) {
+        
         recycleView.removeTimer()
     }
     
-    //MARK: - <JKRecycleViewDelegate>
-    func recycleView(_ recycleView: JKRecycleView, didClickCurrentImageView: Int) {
-//        alertImageIndex(didClickCurrentImageView)
+    // MARK: - JKRecycleViewDelegate
+    
+    func recycleView(_ recycleView: JKRecycleView, didClickImageWith dict: [String : AnyObject]) {
+        
+//        alertImageWith(dict)
     }
     
-    private func alertImageIndex(_ index: Int) {
-        let message = "点击了第\(index + 1)张图片"//[NSString stringWithFormat:@, ];
+    private func alertImageWith(_ dict: [String : AnyObject]) {
         
-        let alertVc = UIAlertController(title: nil, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        guard let message = dict[JKRecycleTitleKey] else { return }
+        
+        let alertVc = UIAlertController(title: nil, message: message as? String, preferredStyle: UIAlertControllerStyle.alert)
         
         alertVc.addAction(UIAlertAction(title: "确定", style: UIAlertActionStyle.default, handler: nil))
         

@@ -8,14 +8,22 @@
 
 import UIKit
 
+/** 图片 */
+let JKRecycleImageUrlKey = "JKRecycleImageUrlKey"
+
+/** 标题 */
+let JKRecycleTitleKey = "JKRecycleTitleKey"
+
+/** 其他数据 */
+let JKRecycleOtherDictKey = "JKRecycleOtherDictKey"
+
 // MARK: - 代理方法
 
 @objc
 protocol JKRecycleViewDelegate: NSObjectProtocol {
     
     /** 点击了轮播图 */
-    @objc optional func recycleView(recycleView: JKRecycleView, didClickImageWithIndex: Int, otherDataDict: [String : AnyObject])
-    
+    @objc optional func recycleView(_ recycleView: JKRecycleView, didClickImageWith dict: [String : AnyObject])
 }
 
 
@@ -24,7 +32,7 @@ class JKRecycleView: UIView {
     //MARK: - 公共属性
     
     /** 自动滚动的时间间隔（单位为s）默认3s 不可小于1s */
-    var autoRecycleInterval: TimeInterval = 3 {
+    public var autoRecycleInterval: TimeInterval = 3 {
         
         didSet{
             
@@ -35,7 +43,7 @@ class JKRecycleView: UIView {
     }
     
     /** 是否自动循环 默认true */
-    var isAutoRecycle: Bool = true{
+    public var isAutoRecycle: Bool = true{
         
         didSet{
             
@@ -46,13 +54,33 @@ class JKRecycleView: UIView {
     }
     
     /** 是否有缩放动画 默认没有 */
-    var scaleAnimated = false
+    public var isScaleAnimated = false
     
     /** 代理 */
-    weak var delegate: JKRecycleViewDelegate?
+    public weak var delegate: JKRecycleViewDelegate?
     
     /** 监听图片点击的block */
-    var imageClickBlock: ((_ index: Int, _ otherDataDict: [String : AnyObject]) -> ())?
+    public var imageClickBlock: ((_ dict: [String : AnyObject]) -> ())?
+    
+    /** contentView */
+    private(set) lazy var contentView: UIView = {
+        
+        let contentView = UIView(frame: self.bounds)
+        self.insertSubview(contentView, at: 0)
+        
+        return contentView
+    }()
+    
+    /** contentView */
+    private(set) lazy var flowlayout: UICollectionViewFlowLayout = {
+        
+        let flowlayout = UICollectionViewFlowLayout()
+        flowlayout.scrollDirection = UICollectionViewScrollDirection.horizontal
+        flowlayout.minimumLineSpacing = 0
+        flowlayout.minimumInteritemSpacing = 0
+        
+        return flowlayout
+    }()
     
     /** pageControl */
     private(set) lazy var pageControl: UIPageControl = {
@@ -61,16 +89,9 @@ class JKRecycleView: UIView {
         pageControl.isUserInteractionEnabled = false
         //        pageControl.pageIndicatorTintColor = UIColor.lightGray
         //        pageControl.currentPageIndicatorTintColor = UIColor.white
+        self.contentView.addSubview(pageControl)
         
         return pageControl
-    }()
-    
-    /** contentView */
-    private(set) lazy var contentView: UIView = {
-        
-        let contentView = UIView(frame: self.bounds)
-        
-        return contentView
     }()
     
     
@@ -84,141 +105,45 @@ class JKRecycleView: UIView {
         return recycleView
     }
     
-    /** 设置数据 */
-    public func setImageData(imageUrls: [String], titles: [String]?, otherDataDicts: [[String : AnyObject]]?) {
+    /**
+     * 设置数据
+     * 数组中每个元素应是NSDictionary类型
+     * NSDictionary必须有一个图片urlkey JKRecycleImageUrlKey
+     * JKRecycleTitleKey和JKRecycleOtherDictKey可有可无
+     */
+    public func setDataSource(dataSource: [[String : AnyObject]]?) {
         
-        if (imageUrls.count <= 0) {
-            
-            removeTimer()
-            
-            pagesCount = 0
-            scrollView.isScrollEnabled = false
-            pageControl.isHidden = true
-            tipLabel?.isHidden = false
-            
-            for imgv in allImageViews {
-                
-                imgv.removeFromSuperview()
-            }
-            
-            allImageViews.removeAll()
-            recycleImageViews.removeAll()
-            allTitleLabels.removeAll()
-            dataDicts.removeAll()
-            
-            return
-        }
+        guard let _ = dataSource else { return }
         
-        self.tipLabel?.isHidden = true
-        
-        isDataAdded = false
-        
-        // 防止重复赋值
-        if (self.urls != nil && imageUrls.count == self.urls?.count) {
-            
-            self.isDataAdded = true
-            
-            for i in 0 ..< urls!.count {
-                
-                let str1 = imageUrls[i]
-                let str2 = urls![i]
-                
-                if str1 == str2 { continue }
-                
-                self.isDataAdded = false
-                
-                break
-            }
-        }
-        
-        // 如果数据已经添加，直接返回
-        if (self.isDataAdded) {
-            return
-        }
-        
-        removeTimer()
-        pagesCount = 0
-        currentIndex = 0
-        scrollView.isScrollEnabled = false
-        
-        // 赋值
-        urls = nil
-        urls = imageUrls
-        dataDicts.removeAll()
-        //(dataDicts as! NSMutableArray).addObjects(from: otherDataDicts!)
-        if let dicts = otherDataDicts {
-            
-            dataDicts = dicts
-        }
-        
-        // pageControl的页数就是图片的个数
-        pagesCount = imageUrls.count
+        pagesCount = dataSource!.count
         pageControl.numberOfPages = pagesCount
         
-        // 先清空数组
-        allImageViews.removeAll()
-        allTitleLabels.removeAll()
-        
-        // 循环创建imageView等控件，添加到数组中
-        for i in 0 ..< pagesCount {
+        for dict in dataSource! {
             
-            // 创建imageView
-            let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: self.scrollView.frame.size.width, height: self.scrollView.frame.size.height))
-            
-            // MARK: - Warning - 此处设置图片
-            imageView.image = UIImage(named: imageUrls[i])
-            //            imageView.jk_setImage(withUrlStr: imageUrls[i])
-            
-            // 将控件添加到数组
-            allImageViews.append(imageView)
-            
-            if (titles == nil || (titles?.count)! < pagesCount) { continue }
-            
-            // 创建titleLabel
-            let titleLabel = UILabel()
-            titleLabel.textAlignment = NSTextAlignment.left
-            titleLabel.numberOfLines = 0
-            titleLabel.font = UIFont.boldSystemFont(ofSize: 20)
-            titleLabel.shadowColor = UIColor.darkGray
-            titleLabel.shadowOffset = CGSize(width: 1, height: 0)
-            titleLabel.textColor = UIColor.white
-            //            titleLabel.backgroundColor = UIColor.blue
-            titleLabel.lineBreakMode = NSLineBreakMode.byCharWrapping
-            
-            
-            titleLabel.text = titles?[i]
-            let labelSize = titleLabel.sizeThatFits(CGSize(width: imageView.bounds.size.width-30, height: 100))
-            titleLabel.frame = CGRect(x: 15, y: pageControl.frame.origin.y - labelSize.height, width: imageView.bounds.size.width-30, height: labelSize.height)
-            imageView.addSubview(titleLabel)
-            
-            allTitleLabels.append(titleLabel)
+            dataSourceArr.append(dict)
         }
         
-        scrollView.isScrollEnabled = true
-        
-        // 更新要进行循环的三张图片
-        reloadRecycleImageViews()
-        
-        // 开始自动循环
-        addTimer()
-        
-        if (imageUrls.count <= 1) {
+        if (pagesCount <= 1) {
             
-            pageControl.isHidden = true
-        }
-        
-        currentImageView = allImageViews.first
-        
-        if (!scaleAnimated) {
+            collectionView.isScrollEnabled = false
+            
+            collectionView.reloadData()
+            
             return
         }
         
-        UIView.animate(withDuration: 0.25, animations: {
+        dataSourceArr.append(dataSource!.first!)
+        dataSourceArr.insert(dataSource!.last!, at: 0)
+        
+        collectionView.performBatchUpdates({
             
-            self.currentImageView?.transform = CGAffineTransform.identity
+            self.collectionView.reloadSections(IndexSet.init(integer: 0))
             
         }) { (_) in
             
+            self.collectionView.setContentOffset(CGPoint(x: self.collectionView.bounds.size.width, y: 0), animated: false)
+            
+            self.addTimer()
         }
     }
     
@@ -228,7 +153,8 @@ class JKRecycleView: UIView {
         if !isAutoRecycle ||
             pagesCount <= 1 ||
             timer != nil ||
-            autoRecycleInterval <= 1 {
+            autoRecycleInterval < 1 {
+            
             return
         }
         
@@ -257,86 +183,47 @@ class JKRecycleView: UIView {
     //MARK: - 私有属性
     
     /** scrollView */
-    private lazy var scrollView: UIScrollView = {
+    private lazy var collectionView: UICollectionView = {
         
-        let scrollView = UIScrollView(frame: self.bounds)
+        let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: self.flowlayout)
+        collectionView.backgroundColor = nil
+        collectionView.scrollsToTop = false
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.isPagingEnabled = true
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.decelerationRate = UIScrollViewDecelerationRateFast
+        self.contentView.insertSubview(collectionView, at: 0)
         
-        scrollView.scrollsToTop = false
-        scrollView.isScrollEnabled = false
-        scrollView.delegate = self
-        scrollView.backgroundColor = UIColor.clear
-        scrollView.isPagingEnabled = true
-        scrollView.contentSize = CGSize(width: 3 * self.bounds.size.width, height: 0)
-        scrollView.showsVerticalScrollIndicator = false
-        scrollView.showsHorizontalScrollIndicator = false
+        collectionView.register(JKRecycleCell.self, forCellWithReuseIdentifier: "JKRecycleCell")
         
-        for vv in scrollView.subviews {
-            
-            vv.removeFromSuperview()
-        }
-        
-        //        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        //        [scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
-        //            make.left.right.top.bottom.mas_equalTo(0)
-        //        }]
-        
-        return scrollView
+        return collectionView
     }()
-    
-    /** 要循环的imageView 数组 */
-    private lazy var recycleImageViews = [UIImageView]()
-    
-    /** 所有的imageView 数组 */
-    fileprivate lazy var allImageViews = [UIImageView]()
-    
-    /** 所有的label 数组 */
-    private lazy var allTitleLabels = [UILabel]()
-    
-    /** 其它数据 */
-    private lazy var dataDicts = [[String : AnyObject]]()
-    
-    /** 只有2张图片时，额外的图片 */
-    private lazy var thirdImageView = UIImageView(frame: self.scrollView.bounds)
-    
-    /** 图片容器view数组 */
-    private lazy var imageContainerViews: [UIView] = {
-        
-        var imageContainerViews = [UIView]()
-        
-        for i in 0 ..< 3 {
-            
-            let containerView = UIView()
-            
-            imageContainerViews.append(containerView)
-        }
-        
-        return imageContainerViews
-    }()
-    
-    
-    /** 中间的label */
-    var middleLabel: UILabel?
-    
-    /** 提示的label */
-    var tipLabel: UILabel?
     
     /** 定时器 */
-    var timer: Timer?
+    private var timer: Timer?
     
-    /** 当前的数据 */
-    var urls: [String]?
+    /** 数据源 */
+    private lazy var dataSourceArr = [[String : AnyObject]]()
     
     /** 当前的索引 */
-    var currentIndex: Int = 0
-    
-    /** 当前的图片 */
-    var currentImageView: UIImageView?
+    private var currentIndex: Int = 0
     
     /** 图片页数 */
-    var pagesCount: Int = 0
+    private var pagesCount: Int = 0
     
-    /** 数据是否已经添加 */
-    var isDataAdded: Bool = false
+    // MARK: - 循环滚动的方法
+    
+    @objc private func startAutoRecycle() {
+        
+        if timer == nil {
+            return
+        }
+        
+        let newOffset = CGPoint(x: collectionView.contentOffset.x + collectionView.bounds.size.width, y: 0)
+        collectionView.setContentOffset(newOffset, animated: true)
+    }
     
     // MARK: - 初始化
     
@@ -350,228 +237,145 @@ class JKRecycleView: UIView {
         super.init(coder: aDecoder)
         
         initialization()
-        
-        //        fatalError("init(coder:) has not been implemented")
     }
     
     private func initialization() {
         
-        self.backgroundColor = UIColor.lightGray
+        backgroundColor = UIColor.lightGray
         
-        autoRecycleInterval = 5
+        autoRecycleInterval = 3
         
-        addSubview(contentView)
-        contentView.insertSubview(scrollView, at: 0)
-        contentView.addSubview(pageControl)
-        
-        addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(clickMiddleImageView)))
+        let _ = collectionView
+        let _ = pageControl
     }
     
-    // MARK: - 传入一个index来获取下一个正确的index
-    fileprivate func getVaildNextPageIndexWith(index: Int) -> Int {
+    override func layoutSubviews() {
+        super.layoutSubviews()
         
-        if (index == -1) {
-            
-            return pagesCount - 1
-            
-        } else if (index == pagesCount) {
-            
-            return 0
-        }
-        
-        return index
+        contentView.frame = self.bounds
+        collectionView.frame = self.contentView.bounds
+        flowlayout.itemSize = self.bounds.size
+        pageControl.frame = CGRect(x: 0, y: self.bounds.size.height - 20, width: self.bounds.size.width, height: 20)
+    }
+}
+
+// MARK: - UICollectionViewDataSource, UICollectionViewDelegate
+
+extension JKRecycleView: UICollectionViewDataSource, UICollectionViewDelegate{
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return dataSourceArr.count
     }
     
-    // MARK: - 更新recycleImageViews
-    
-    private func updateRecycleImageViews() {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        if (allImageViews.count <= 0) {
-            return
-        }
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "JKRecycleCell", for: indexPath) as! JKRecycleCell
         
-        // 先清空数组
-        recycleImageViews.removeAll()
+        cell.bindDict(dict: dataSourceArr[indexPath.item])
         
-        // 计算好上一张和下一张图片的索引
-        let previousIndex = getVaildNextPageIndexWith(index: currentIndex - 1)
-        let nextIndex = getVaildNextPageIndexWith(index: currentIndex + 1)
-        
-        // 按顺序添加要循环的三张图片
-        if (pagesCount == 2) {
-            
-            recycleImageViews.append(thirdImageView)
-            
-            // MARK: - Warning - 只有两张图时 这里也要设置图片
-            thirdImageView.image = UIImage(named: (urls?[previousIndex])!)
-            //            thirdImageView.jk_setImage(withUrlStr: urls?[previousIndex])
-            
-        }else{
-            
-            recycleImageViews.append(allImageViews[previousIndex])
-        }
-        recycleImageViews.append(allImageViews[currentIndex])
-        recycleImageViews.append(allImageViews[nextIndex])
-        
-        if (allTitleLabels.count >= currentIndex + 1) {
-            
-            // 中间label赋值
-            middleLabel = allTitleLabels[currentIndex]
-        }
+        return cell
     }
     
-    // MARK: - 重载recycleImageViews
-    
-    fileprivate func reloadRecycleImageViews() {
-        
-        // 先让scrollView移除所有控件
-        for imgv in recycleImageViews {
-            
-            imgv.removeFromSuperview()
-        }
-        
-        // 更新要循环的三张图片
-        updateRecycleImageViews()
-        
-        // 将这三张图片添加到scrollView
-        for i in 0 ..< 3 {
-            
-            let containerView = imageContainerViews[i]
-            
-            let imageView = recycleImageViews[i]
-            imageView.transform = CGAffineTransform.identity
-            
-            let rect = imageView.frame
-            
-            containerView.frame = CGRect(x: scrollView.bounds.size.width * CGFloat(i), y: rect.origin.y, width: rect.size.width, height: rect.size.height)
-            
-            imageView.frame = containerView.bounds
-            
-            containerView.addSubview(imageView)
-            
-            if (self.scaleAnimated) {
-                
-                imageView.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
-                imageView.center = CGPoint(x: containerView.frame.size.width * 0.5, y: containerView.frame.size.height * 0.5)
-            }
-            
-            scrollView.addSubview(containerView)
-        }
-        
-        // 如果只有一张图片及以下，就没必要滚动了吧
-        scrollView.isScrollEnabled = true
-        
-        if (pagesCount <= 1) {
-            
-            scrollView.contentOffset = CGPoint(x: self.bounds.size.width * 2, y: 0)
-            scrollView.isScrollEnabled = false
-            pageControl.isHidden = true
-            
-            return
-        }
-        
-        // 设置scollView偏移
-        scrollView.contentOffset = CGPoint(x: self.bounds.size.width, y: 0)
-        
-        // 设置pageControl的当前页
-        pageControl.currentPage = currentIndex
-    }
-    
-    // MARK: - 循环滚动的方法
-    
-    @objc private func startAutoRecycle() {
-        
-        if timer == nil {
-            return
-        }
-        
-        let newOffset = CGPoint(x: scrollView.bounds.size.width * 2, y: 0)
-        scrollView.setContentOffset(newOffset, animated: true)
-    }
-    
-    // MARK: - 点击了中间的ImageView即当前显示的ImageView
-    
-    @objc private func clickMiddleImageView() {
-        
-        if (pagesCount <= 0) {
-            
-            return
-        }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        collectionView.deselectItem(at: indexPath, animated: false)
         
         if let block = imageClickBlock {
             
-            block(currentIndex, (dataDicts.count == urls!.count) ? dataDicts[currentIndex] : ["error" : "图片和其它数据不一致"] as [String : AnyObject])
+            block(dataSourceArr[indexPath.item])
         }
         
-        if delegate == nil {
-            return
-        }
+        if delegate == nil { return }
         
-        if delegate!.responds(to: #selector(JKRecycleViewDelegate.recycleView(recycleView:didClickImageWithIndex:otherDataDict:))) {
+        if delegate!.responds(to: #selector(JKRecycleViewDelegate.recycleView(_:didClickImageWith:))) {
             
-            delegate?.recycleView!(recycleView: self, didClickImageWithIndex: currentIndex, otherDataDict: (dataDicts.count == urls!.count) ? dataDicts[currentIndex] : ["error" : "图片和其它数据不一致"] as [String : AnyObject])
+            delegate?.recycleView!(self, didClickImageWith: dataSourceArr[indexPath.item])
         }
     }
     
-    /** x偏移量 */
-    fileprivate var offsetX: CGFloat = 0
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        
+        if (!isScaleAnimated) { return }
+        
+        cell.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        
+        if (!isScaleAnimated) { return }
+        
+        guard let index = collectionView.indexPathsForVisibleItems.last else { return }
+        
+        let cell1 = collectionView.cellForItem(at: index)
+        
+        UIView.animate(withDuration: 0.25) {
+            
+            cell1?.transform = CGAffineTransform.identity
+        }
+    }
 }
 
 // MARK: - UIScrollViewDelegate
 
 extension JKRecycleView: UIScrollViewDelegate {
     
-    // 根据滚动的偏移量设置当前的索引，并更新要进行循环的三张图片
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
-        offsetX = scrollView.contentOffset.x
-        
-        if offsetX >= (2 * scrollView.bounds.size.width) {
-            
-            currentIndex = getVaildNextPageIndexWith(index: currentIndex + 1)
-            currentImageView = allImageViews[currentIndex]
-            reloadRecycleImageViews()
-        }
-        
-        if offsetX <= 0 {
-            
-            currentIndex = getVaildNextPageIndexWith(index: currentIndex - 1)
-            currentImageView = allImageViews[currentIndex]
-            reloadRecycleImageViews()
-        }
     }
     
     // 减速完毕 重新设置scrollView的x偏移
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         
-        scrollView.setContentOffset(CGPoint(x: scrollView.bounds.size.width, y: 0), animated: true)
-        
-        if !scaleAnimated {
-            return
-        }
-        
-        UIView.animate(withDuration: 0.25, animations: {
-            
-            self.currentImageView?.transform = CGAffineTransform.identity
-            
-        }) { (_) in
-            
-        }
+        adjustContentOffset(scrollView: scrollView)
     }
     
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         
+        adjustContentOffset(scrollView: scrollView)
+    }
+    
+    private func adjustContentOffset(scrollView: UIScrollView) {
         
-        if !scaleAnimated {
-            return
-        }
+        let page = Int(scrollView.contentOffset.x / scrollView.bounds.size.width)
         
-        UIView.animate(withDuration: 0.25, animations: {
+        if (page == 0) { // 滚动到左边，自动调整到倒数第二
             
-            self.currentImageView?.transform = CGAffineTransform.identity
+            scrollView.contentOffset = CGPoint(x: scrollView.bounds.size.width * CGFloat(pagesCount), y: 0)
+            pageControl.currentPage = pagesCount
             
-        }) { (_) in
+            if (isScaleAnimated) {
+                
+                DispatchQueue.main.JKRecycle_afterMilliseconds(time: 10) {
+                    
+                    let cell = self.collectionView.cellForItem(at: IndexPath(item: self.pagesCount, section: 0))
+                    
+                    UIView.animate(withDuration: 0.25, animations: {
+                        
+                        cell?.transform = CGAffineTransform.identity
+                    })
+                }
+            }
             
+        }else if (page == pagesCount + 1){ // 滚动到右边，自动调整到第二个
+            
+            scrollView.contentOffset = CGPoint(x: scrollView.bounds.size.width, y: 0)
+            pageControl.currentPage = 0
+            
+            if (isScaleAnimated) {
+                
+                DispatchQueue.main.JKRecycle_afterMilliseconds(time: 10) {
+                
+                    let cell = self.collectionView.cellForItem(at: IndexPath(item: 1, section: 0))
+                    
+                    UIView.animate(withDuration: 0.25, animations: {
+                        
+                        cell?.transform = CGAffineTransform.identity
+                    })
+                }
+            }
+            
+        }else{
+            
+            pageControl.currentPage = page - 1
         }
     }
     
@@ -588,3 +392,105 @@ extension JKRecycleView: UIScrollViewDelegate {
     }
 }
 
+class JKRecycleCell: UICollectionViewCell {
+    
+    private var dict: [String : AnyObject] = [:]
+    
+    /** containerView */
+    private lazy var containerView: UIView = {
+        
+        let containerView = UIView()
+        self.contentView.insertSubview(containerView, at: 0)
+        
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let containerViewCons1 = NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[containerView]-0-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["containerView" : containerView])
+        self.contentView.addConstraints(containerViewCons1)
+        
+        let containerViewCons2 = NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[containerView]-0-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["containerView" : containerView])
+        self.contentView.addConstraints(containerViewCons2)
+        
+        return containerView
+    }()
+    
+    /** imageView */
+    private lazy var imageView: UIImageView = {
+        
+        let imageView = UIImageView()
+        self.containerView.insertSubview(imageView, at: 0)
+        
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let imageViewCons1 = NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[imageView]-0-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["imageView" : imageView])
+        self.containerView.addConstraints(imageViewCons1)
+        
+        let imageViewCons2 = NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[imageView]-0-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["imageView" : imageView])
+        self.containerView.addConstraints(imageViewCons2)
+        
+        return imageView
+    }()
+    
+    /** titleLabel */
+    private var _titleLabel: UILabel?
+    
+    /** titleLabel */
+    private lazy var titleLabel: UILabel = {
+        
+        let titleLabel = UILabel()
+        self.containerView.addSubview(titleLabel)
+        
+        titleLabel.textAlignment = NSTextAlignment.center
+        titleLabel.numberOfLines = 0
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 20)
+        titleLabel.shadowColor = UIColor.darkGray
+        titleLabel.shadowOffset = CGSize(width: 1, height: 0)
+        titleLabel.textColor = UIColor.white
+        titleLabel.backgroundColor = UIColor.clear
+        titleLabel.lineBreakMode = NSLineBreakMode.byCharWrapping
+        
+        return titleLabel
+    }()
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        if _titleLabel == nil { return }
+        
+        let labelSize = _titleLabel!.sizeThatFits(CGSize(width: self.contentView.bounds.size.width - 30, height: CGFloat.greatestFiniteMagnitude))
+        _titleLabel!.frame = CGRect(x: 15, y: self.contentView.bounds.size.height - 20 - labelSize.height, width: self.contentView.bounds.size.width - 30, height: labelSize.height)
+    }
+    
+    /** 设置数据 */
+    public func bindDict(dict: [String : AnyObject]?) {
+        
+        guard let _ = dict else { return }
+        
+        self.dict = dict!
+        
+        imageView.image = UIImage(named: self.dict[JKRecycleImageUrlKey] as! String)
+        
+        if (self.dict[JKRecycleTitleKey] == nil) {
+            
+            _titleLabel?.isHidden = true
+            
+            return
+        }
+        
+        _titleLabel = titleLabel
+        
+        _titleLabel?.text = self.dict[JKRecycleTitleKey] as? String
+        
+        _titleLabel?.isHidden = false
+    }
+}
+
+
+extension DispatchQueue {
+    
+    func JKRecycle_afterMilliseconds(time: Int, block: @escaping ()->()) {
+        
+        let afterTime = DispatchTime.now() + DispatchTimeInterval.milliseconds(time)
+        
+        self.asyncAfter(deadline: afterTime, execute: block)
+    }
+}
