@@ -19,7 +19,7 @@
 		506FBF391D7DBB4C00416A99 /* kenan03.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 506FBF341D7DBB4C00416A99 /* kenan03.jpg */; };
 		506FBF3A1D7DBB4C00416A99 /* kenan04.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 506FBF351D7DBB4C00416A99 /* kenan04.jpg */; };
 		506FBF3B1D7DBB4C00416A99 /* kenan05.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 506FBF361D7DBB4C00416A99 /* kenan05.jpg */; };
-		506FBF3D1D7DBBD000416A99 /* JKRecycleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506FBF3C1D7DBBD000416A99 /* JKRecycleView.swift */; };
+		506FBF3D1D7DBBD000416A99 /* JKCycleBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 506FBF3C1D7DBBD000416A99 /* JKCycleBannerView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,7 +58,7 @@
 		506FBF341D7DBB4C00416A99 /* kenan03.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = kenan03.jpg; sourceTree = "<group>"; };
 		506FBF351D7DBB4C00416A99 /* kenan04.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = kenan04.jpg; sourceTree = "<group>"; };
 		506FBF361D7DBB4C00416A99 /* kenan05.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = kenan05.jpg; sourceTree = "<group>"; };
-		506FBF3C1D7DBBD000416A99 /* JKRecycleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JKRecycleView.swift; sourceTree = "<group>"; };
+		506FBF3C1D7DBBD000416A99 /* JKCycleBannerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JKCycleBannerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,7 +112,7 @@
 				506FBF311D7DBB3A00416A99 /* Resources */,
 				506FBF031D7DBB2500416A99 /* AppDelegate.swift */,
 				506FBF051D7DBB2500416A99 /* ViewController.swift */,
-				506FBF3C1D7DBBD000416A99 /* JKRecycleView.swift */,
+				506FBF3C1D7DBBD000416A99 /* JKCycleBannerView.swift */,
 				506FBF071D7DBB2500416A99 /* Main.storyboard */,
 				506FBF0A1D7DBB2500416A99 /* Assets.xcassets */,
 				506FBF0C1D7DBB2500416A99 /* LaunchScreen.storyboard */,
@@ -295,7 +295,7 @@
 			files = (
 				506FBF061D7DBB2500416A99 /* ViewController.swift in Sources */,
 				506FBF041D7DBB2500416A99 /* AppDelegate.swift in Sources */,
-				506FBF3D1D7DBBD000416A99 /* JKRecycleView.swift in Sources */,
+				506FBF3D1D7DBBD000416A99 /* JKCycleBannerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
