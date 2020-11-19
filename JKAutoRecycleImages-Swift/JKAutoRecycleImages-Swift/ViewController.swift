@@ -51,6 +51,7 @@ class ViewController: UIViewController, JKCycleBannerViewDelegate {
 //        alertImageWith(dict)
     }
     
+    
     private func alertImageWith(_ dict: [String : AnyObject]) {
         
         guard let message = dict[JKCycleBannerTitleKey] else { return }
